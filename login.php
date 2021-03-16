@@ -1,3 +1,15 @@
+<?php
+
+session_start();
+
+if((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany']==true))
+{
+		header('Location: mainMenu.php');
+		exit();
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -57,14 +69,14 @@
 				
 			<div class="row" id="logowanie">
 		
-				<form action="" class="login-form needs-validation" novalidate style="width:350px; margin-auto">	
+				<form action="loggedin.php" class="login-form needs-validation" novalidate style="width:350px; margin-auto" method="post">	
 					
 					<div class="form-group">
 							 <div class="input-group">
 								<div class="input-group-prepend">
 									<i class="fa fa-user"></i> 
 							    </div>
-								<input type="text" name="name" class="form-control" id="loginName" placeholder="Imię lub email" onfocus="this.placeholder=''" onblur="this.placeholder='Imię lub mail'" required>
+								<input type="text" name="login" class="form-control" id="loginName" placeholder="Imię lub email" onfocus="this.placeholder=''" onblur="this.placeholder='Imię lub mail'" required>
 								<div class="invalid-feedback">Podaj imię lub emial!</div>
 							 </div>
 						</div>
@@ -74,7 +86,7 @@
 								<div class="input-group-prepend">
 									<i class="fa fa-key"></i> 
 							    </div>
-								<input type="password" name="password" id="passwordInput"class="form-control" placeholder="Hasło" onfocus="this.placeholder=''" onblur="this.placeholder='Hasło'" required>
+								<input type="password" name="haslo" id="passwordInput"class="form-control" placeholder="Hasło" onfocus="this.placeholder=''" onblur="this.placeholder='Hasło'" required>
 								<div class="invalid-feedback">Podaj hasło!</div>
 							 </div>
 						</div>
@@ -100,6 +112,16 @@
 					
 					
 				</form>	
+				
+<?php
+
+	if(isset($_SESSION['blad'])) 
+	{
+		echo $_SESSION['blad'];
+	}
+	
+
+?>
 					
 			</div>
 				

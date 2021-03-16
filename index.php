@@ -1,3 +1,14 @@
+<?php
+
+session_start();
+
+if((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany']==true))
+{
+		header('Location: gra.php');
+		exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -106,14 +117,14 @@
 				
 				<div class="col-sm-3 col-md-2 offset-md-3 offset-sm-2 tile text-dark">
 					<figure>
-						<a href="login.html" class="tilelink"><i class="fas fa-sign-in-alt fa-2x"></i><br />Zaloguj się!</a>
+						<a href="login.php" class="tilelink"><i class="fas fa-sign-in-alt fa-2x"></i><br />Zaloguj się!</a>
 					</figure>
 				</div>
 				
 							
 				<div class="col-sm-3 col-md-2 offset-md-2 offset-sm-1 tile text-dark">
 					<figure>
-						<a href="register.html" class="tilelink"><i class="fas fa-file-signature fa-2x"></i><br />Zarejestruj się!</a>
+						<a href="register.php" class="tilelink"><i class="fas fa-file-signature fa-2x"></i><br />Zarejestruj się!</a>
 					</figure>
 				</div>
 				
