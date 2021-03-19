@@ -69,15 +69,15 @@ if((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany']==true))
 				
 			<div class="row" id="logowanie">
 		
-				<form action="loggedin.php" class="login-form needs-validation" novalidate style="width:350px; margin-auto" method="post">	
+				<form action="logUser.php" class="login-form needs-validation" novalidate style="width:350px; margin-auto" method="post">	
 					
 					<div class="form-group">
 							 <div class="input-group">
 								<div class="input-group-prepend">
 									<i class="fa fa-user"></i> 
 							    </div>
-								<input type="text" name="login" class="form-control" id="loginName" placeholder="Imię lub email" onfocus="this.placeholder=''" onblur="this.placeholder='Imię lub mail'" required>
-								<div class="invalid-feedback">Podaj imię lub emial!</div>
+								<input type="text" name="login" class="form-control" id="loginName" placeholder="Login" onfocus="this.placeholder=''" onblur="this.placeholder='Login'" required>
+								<div class="invalid-feedback">Podaj login!</div>
 							 </div>
 						</div>
 					
@@ -90,6 +90,15 @@ if((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany']==true))
 								<div class="invalid-feedback">Podaj hasło!</div>
 							 </div>
 						</div>
+<?php
+
+	if(isset($_SESSION['blad'])) 
+	{
+		echo $_SESSION['blad'];
+	}
+	
+
+?>
 						
 					
 						<input type="submit" class="btn btn-success " value="Zaloguj">
@@ -97,7 +106,7 @@ if((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany']==true))
 						
 						<div class="col-xs-6 offset-xs-3">
 						
-							<a href = "register.html" class = "registerLink">
+							<a href = "register.php" class = "registerLink">
 							
 								<div class ="loginToRegister">
 							
@@ -109,20 +118,13 @@ if((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany']==true))
 							
 						</div>
 						
-					
+
 					
 				</form>	
+
 				
-<?php
 
-	if(isset($_SESSION['blad'])) 
-	{
-		echo $_SESSION['blad'];
-	}
-	
-
-?>
-					
+			
 			</div>
 				
 				

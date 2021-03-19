@@ -59,27 +59,27 @@
 				<ul class="navbar-nav">
 				
 					<li class="nav-item px-3">
-						<a class="nav-link" href="mainMenu.html"><i class="fas fa-home"></i> Start </a>
+						<a class="nav-link" href="mainMenu.php"><i class="fas fa-home"></i> Start </a>
 					</li>
 					
 					<li class="nav-item px-3 ">
-						<a class="nav-link " href="addIncome.html"><i class="fas fa-hand-holding-usd"></i> Przychody </a>
+						<a class="nav-link " href="addIncome.php"><i class="fas fa-hand-holding-usd"></i> Przychody </a>
 					</li>
 					
 					<li class="nav-item px-3 ">
-						<a class="nav-link" href="addExpense.html"><i class="fas fa-shopping-cart"></i> Wydatki </a>
+						<a class="nav-link" href="addExpense.php"><i class="fas fa-shopping-cart"></i> Wydatki </a>
 					</li>
 					
 					<li class="nav-item px-3 active">
-						<a class="nav-link" href="showBalance.html"><i class="fas fa-balance-scale-right"></i> Bilans </a>
+						<a class="nav-link" href="showBalance.php"><i class="fas fa-balance-scale-right"></i> Bilans </a>
 					</li>
 					
 					<li class="nav-item px-3">
-						<a class="nav-link" href="settings.html"><i class="fas fa-cogs"></i> Ustawienia </a>
+						<a class="nav-link" href="settings.php"><i class="fas fa-cogs"></i> Ustawienia </a>
 					</li>
 					
 					<li class="nav-item px-3">
-						<a class="nav-link" href="logout.html"><i class="fas fa-sign-out-alt"></i> Wyloguj </a>
+						<a class="nav-link" href="logout.php"><i class="fas fa-sign-out-alt"></i> Wyloguj </a>
 					</li>
 				
 				</ul>
