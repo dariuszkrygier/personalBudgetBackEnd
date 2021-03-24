@@ -65,6 +65,12 @@ if((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany']==true))
 	<article>
 			
 		<div class="container">
+<?php	
+if(isset($_SESSION['udanarejestracja']))
+{
+	echo '<div class="row text-light" id="logowanie"> Udało Ci się poprawnie zarejestrować! </div>';
+}
+?>
 			
 				
 			<div class="row" id="logowanie">
