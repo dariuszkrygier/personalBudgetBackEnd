@@ -1,11 +1,13 @@
 <?php
 
-session_start();
-
-if(!isset($_SESSION['zalogowany']))
-{
-	header('Location: index.php');
-}
+	session_start();
+	
+	if (!isset($_SESSION['zalogowany']))
+	{
+		header('Location: index.php');
+		exit();
+	}
+	
 ?>
 
 
@@ -101,7 +103,15 @@ if(!isset($_SESSION['zalogowany']))
 	<main>
 		
 		<article>
-		
+
+		<?php
+
+echo '<div class="row text-light" id="logowanie">';
+echo 'Witaj '.$_SESSION['username'].'!' ;
+echo '</div>';
+	
+	
+?>
 			<div>
 				<figure>
 							<img src="img/coins.jpg" alt="budget" class="image img-fluid">

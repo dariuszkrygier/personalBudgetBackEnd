@@ -4,7 +4,7 @@ session_start();
 
 if((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany']==true))
 {
-		header('Location: mainMenu.php');
+		header('Location: gra.php');
 		exit();
 }
 ?>
@@ -65,12 +65,7 @@ if((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany']==true))
 	<article>
 			
 		<div class="container">
-<?php	
-if(isset($_SESSION['udanarejestracja']))
-{
-	echo '<div class="row text-light" id="logowanie"> Udało Ci się poprawnie zarejestrować! </div>';
-}
-?>
+
 			
 				
 			<div class="row" id="logowanie">
@@ -96,15 +91,7 @@ if(isset($_SESSION['udanarejestracja']))
 								<div class="invalid-feedback">Podaj hasło!</div>
 							 </div>
 						</div>
-<?php
 
-	if(isset($_SESSION['blad'])) 
-	{
-		echo $_SESSION['blad'];
-	}
-	
-
-?>
 						
 					
 						<input type="submit" class="btn btn-success " value="Zaloguj">
@@ -129,7 +116,15 @@ if(isset($_SESSION['udanarejestracja']))
 				</form>	
 
 				
+<?php
 
+	if(isset($_SESSION['blad'])) 
+	{
+		echo $_SESSION['blad'];
+	}
+	
+
+?>
 			
 			</div>
 				

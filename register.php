@@ -118,9 +118,16 @@
 				{
 					//Hurra, wszystkie testy zaliczone, dodajemy gracza do bazy
 					
-					if ($polaczenie->query("INSERT INTO users VALUES ('', '$name', '$haslo_hash', '$email')"))
+					if ($polaczenie->query("INSERT INTO users VALUES (NULL, '$name', '$haslo_hash', '$email')"))
 					{
 						$_SESSION['udanarejestracja']=true;
+						
+						$polaczenie->query( "INSERT INTO incomes_category_assigned_to_users(user_id, name) 
+						SELECT u.id AS user_id, d.name FROM users AS u CROSS JOIN incomes_category_default AS d WHERE u.username='$name'");
+						$polaczenie->query( "INSERT INTO expenses_category_assigned_to_users(user_id, name) 
+						SELECT u.id AS user_id, d.name FROM users AS u CROSS JOIN expenses_category_default AS d WHERE u.username='$name'");
+						$polaczenie->query( "INSERT INTO payment_methods_assigned_to_users(user_id, name) 
+						SELECT u.id AS user_id, d.name FROM users AS u CROSS JOIN payment_methods_default AS d WHERE u.username='$name'");
 						
 						header('Location: login.php');
 						
@@ -327,7 +334,7 @@
 		<input type="submit" class="btn btn-success " value="Zarejestruj"/>
 
 						<div class="col-xs-6 offset-xs-3">
-								<a href = "login.html" class = "registerLink">
+								<a href = "login.php" class = "registerLink">
 								
 									<div class ="loginToRegister">
 								
