@@ -129,7 +129,7 @@
 						$polaczenie->query( "INSERT INTO payment_methods_assigned_to_users(user_id, name) 
 						SELECT u.id AS user_id, d.name FROM users AS u CROSS JOIN payment_methods_default AS d WHERE u.username='$name'");
 						
-						header('Location: login.php');
+						header('Location: welcomeLogin.php');
 						
 					}
 					else
@@ -229,7 +229,7 @@
 				echo $_SESSION['fr_name'];
 				unset($_SESSION['fr_name']);
 			}
-		?>">
+		?>"/>
 		<?php
 			if (isset($_SESSION['e_name']))
 			{
@@ -252,7 +252,7 @@
 				echo $_SESSION['fr_haslo1'];
 				unset($_SESSION['fr_haslo1']);
 			}
-		?>">
+		?>"/>
 		<?php
 			if (isset($_SESSION['e_haslo']))
 			{
@@ -276,7 +276,7 @@
 				echo $_SESSION['fr_haslo2'];
 				unset($_SESSION['fr_haslo2']);
 			}
-		?>">
+		?>"/>
 		
 		
 		
@@ -295,7 +295,7 @@
 				echo $_SESSION['fr_email'];
 				unset($_SESSION['fr_email']);
 			}
-		?>">
+		?>"/>
 		<?php
 			if (isset($_SESSION['e_email']))
 			{

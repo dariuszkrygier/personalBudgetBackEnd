@@ -1,3 +1,127 @@
+<?php
+
+	session_start();
+	
+	if(!isset($_SESSION['zalogowany']))
+	{
+		header ('Location: index.php');
+		exit();
+	}
+	
+	if(isset($_POST['amount']))
+	{
+		//Wszystko ok
+		$allGood = true;
+		
+		//Sprawdzanie kwoty
+		$amount = $_POST['amount'];
+		$amount = htmlentities($amount,ENT_QUOTES, "UTF-8");
+		
+		//Czy kwota jest liczbą?
+		if(is_numeric($amount))
+		{
+			$amount = round($amount,2);
+		}
+		else
+		{
+			$allGood = false;
+			$_SESSION['errorAmountIncome']="Kwota musi być liczbą. Format:1234.45";
+		}
+		
+		//CZy wielkość liczby jest odpowiednia??
+		if($amount >= 1000000000)
+		{
+			$allGood = false;
+			$_SESSION['errorAmountIncome']="Kwota musi być liczbą mniejszą od 1 000 000 000.";
+		}
+
+		//Sprawdzanie daty
+		$date = $_POST['date'];
+		$date = htmlentities($date,ENT_QUOTES, "UTF-8");
+		
+		if($date == NULL)
+		{
+			$allGood = false;
+			$_SESSION['errorDateIncome'] = "Wybierz datę dla przychodu.";
+		}
+		
+		$currentDate = date('Y-m-d');
+		
+		if($date > $currentDate)
+		{
+			$allGood = false;
+			$_SESSION['errorDateIncome'] = "Data musi być aktualna lub wcześniejsza.";	
+		}
+		
+		//czy wybrano kategorię?
+		if(isset($_POST['categoryOfIncome'])) 
+		{
+			$category = $_POST['categoryOfIncome'];
+			$_SESSION['formCategoryIncome'] = $category;
+		}
+		else
+		{
+			$allGood = false;
+			$_SESSION['errorCategoryIncome'] = "Wybierz kategorię dla przychodu.";
+		}
+		
+		//Sprawdzanie komentarza
+		$comment = $_POST['comment'];
+		$comment = htmlentities($comment,ENT_QUOTES, "UTF-8");
+		
+		if((strlen($comment) > 100))
+		{
+			$allGood = false;
+			$_SESSION['errorCommentIncome'] = "Komentarz może mieć maksymalnie 100 znaków.";
+		}
+		
+		//Zapamiętanie wprowadzonych danych
+		$_SESSION['formAmountIncome'] = $amount;
+		$_SESSION['formDateIncome'] = $date;
+		$_SESSION['formCommentIncome'] = $comment;
+		
+		//Connect database
+		require_once "connect.php";
+		mysqli_report(MYSQLI_REPORT_STRICT);
+		
+		try
+		{
+			$connection = new mysqli($host, $db_user, $db_password, $db_name);
+			$connection->set_charset("utf8");
+			if ($connection->connect_errno!=0)
+			{
+				throw new Exception(mysqli_connect_errno());
+			}
+			else
+			{
+				$userId = $_SESSION['id'];
+				//All Good
+				if ($allGood==true)
+				{
+					$sql="INSERT INTO incomes VALUES (NULL, '$userId',(SELECT id FROM incomes_category_assigned_to_users WHERE user_id ='$userId' AND name='$category'),'$amount','$date','$comment')";
+					//Adding a user to the database
+					if ($connection->query($sql))
+					{
+						$_SESSION['successfulAddIncome'] = true;
+					    header('Location:successIncome.php');
+					}
+					else
+					{
+						throw new Exception($connection->error);
+					}
+				}
+			}
+			$connection->close();
+		}
+		catch(Exception $e)
+		{
+			echo '<span style="color:red;">Błąd serwera! Przepraszamy za niedogodności i prosimy o rejestrację w innym terminie!</span>';
+			echo '<br />Informacja developerska: '.$e;
+		}
+	}
+
+?>
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -100,7 +224,7 @@
 				
 				<div class="row" id="logowanie">
 		
-					<form action="" class="main-form needs-validation" novalidate style="width:350px; margin-auto">	
+					<form method="post" class="main-form needs-validation" novalidate style="width:350px; margin-auto">	
 					
 						
 						
@@ -109,7 +233,21 @@
 								<div class="input-group-prepend">
 									<i class="fas fa-coins"></i> 
 							    </div>
-								<input type="number" name="kwota" step="0.01" class="form-control" id="wplata"placeholder="Podaj kwotę" onfocus="this.placeholder=''" onblur="this.placeholder='Podaj kwotę'" required>
+								<input type="number" name="amount" step="0.01" class="form-control" id="wplata"placeholder="Podaj kwotę" onfocus="this.placeholder=''" onblur="this.placeholder='Podaj kwotę'" required value="<?php 
+											if (isset($_SESSION['formAmountIncome']))
+											{
+												echo $_SESSION['formAmountIncome'];
+												unset($_SESSION['formAmountIncome']);
+											}
+										?>">
+										
+											<?php
+											if (isset($_SESSION['errorAmountIncome']))
+											{
+												echo '<div class="error">'.$_SESSION['errorAmountIncome'].'</div>';
+												unset($_SESSION['errorAmountIncome']);
+											}
+											?>
 								<div class="invalid-feedback">Podaj kwotę!</div>
 							 </div>
 						</div>
@@ -120,7 +258,26 @@
 								<div class="input-group-prepend">
 									<i class="fas fa-calendar-week"></i> 
 							    </div>
-								<input type="date" name="date"  value="" id="theDate" class="form-control" required>
+								<input type="date" name="date"  id="theDate" class="form-control" required
+								value="<?php 
+											if (isset($_SESSION['formDateIncome']))
+											{
+												echo $_SESSION['formDateIncome'];
+												unset($_SESSION['formDateIncome']);
+											}
+											else
+											{
+												echo date('Y-m-d'); 
+											}
+										?>">
+										
+											<?php
+											if (isset($_SESSION['errorDateIncome']))
+											{
+												echo '<div class="error">'.$_SESSION['errorDateIncome'].'</div>';
+												unset($_SESSION['errorDateIncome']);
+											}
+											?>
 								<div class="invalid-feedback">Podaj datę!</div>
 							</div>
 						</div>
@@ -129,7 +286,7 @@
 						
 							<label for="sel1"><span><i class="fas fa-tasks" aria-hidden="true"></i> Kategoria:</span></label>
 						
-							<div class="form-check">				
+	<!--						<div class="form-check">				
 							  <input class="form-check-input" type="radio" name="payCategory" id="payCategory1" value="option1" checked>
 							  <label class="form-check-label" for="payCategory1">
 								Wynagrodzenie
@@ -156,12 +313,102 @@
 							
 							 <div class="form-group my-2">
 							  <label for="comment">Komentarz (opcjonalnie):</label>
-							  <textarea class="form-control" rows="2"   id="comment"></textarea>
+							  <textarea class="form-control" rows="2"   id="comment" name="comment"></textarea>
 							</div> 
 							
 						</div>
 						
-							
+		-->
+
+							<?php
+
+							//Connect database
+							require_once "connect.php";
+							mysqli_report(MYSQLI_REPORT_STRICT);
+								
+							try
+							{
+								$connection = new mysqli($host, $db_user, $db_password, $db_name);
+								$connection->set_charset("utf8");
+								if ($connection->connect_errno!=0)
+								{
+									throw new Exception(mysqli_connect_errno());
+								}
+								
+								else
+								{
+									//Check number of income categories
+									$userId = $_SESSION['id'];
+									
+									$resultOfQuery=$connection->query("SELECT name FROM incomes_category_assigned_to_users WHERE user_id ='$userId'");
+									
+									if(!$resultOfQuery) throw new Exception($connection->error);
+										
+									$howNames=$resultOfQuery->num_rows;
+									
+									
+									if($howNames>0)
+									{
+										while ($row = $resultOfQuery->fetch_assoc())
+										{
+											echo '<div class="form-group incomeCategory">';
+											echo '<div class="form-check">';
+											echo '<label class="form-check-label">';
+											echo '<input class="form-check-input" type="radio" name="categoryOfIncome" value="'.$row['name'];
+											
+											if(isset($_SESSION['formCategoryIncome']))
+											{
+												if($row['name'] == $_SESSION['formCategoryIncome']) 
+												{
+													echo '"checked ="checked"';
+												}
+											}
+											
+											echo '">'.$row['name'].'</label>';
+											echo '</div>';
+											echo '<div class="col-sm-5"></div>';
+											echo '</div>';	
+										}
+										$resultOfQuery->free_result();
+									}
+									else
+									{
+										
+									}
+								}
+								$connection->close();
+							}
+							catch(Exception $e)
+							{
+								echo '<span style="color:red;">Błąd serwera! Przepraszamy za niedogodności i prosimy o rejestrację w innym terminie!</span>';
+								echo '<br />Informacja developerska: '.$e;
+							}
+						?>		
+						<?php
+							if (isset($_SESSION['errorCategoryIncome']))
+							{
+								echo '<div class="error">'.$_SESSION['errorCategoryIncome'].'</div>';
+								unset($_SESSION['errorCategoryIncome']);
+							}
+						?>								
+															<div class="form-group rowExpense">
+																<label for="comment">Komentarz (opcjonalnie):</label>
+																<textarea class="form-control" rows="3" name="comment" ><?php 
+																	if (isset($_SESSION['formCommentIncome']))
+																	{
+																		echo $_SESSION['formCommentIncome'];
+																		unset($_SESSION['formCommentIncome']);
+																	}
+																?></textarea>
+															<?php
+							if (isset($_SESSION['errorCommentIncome']))
+							{
+								echo '<div class="error">'.$_SESSION['errorCommentIncome'].'</div>';
+								unset($_SESSION['errorCommentIncome']);
+							}
+						?>	
+									</div>
+		
 							<div>
 								<input type="submit" class="btn btn-success " value="Dodaj">
 								
