@@ -1,3 +1,22 @@
+<?php
+
+	session_start();
+	
+	if(!isset($_SESSION['zalogowany']))
+	{
+		header ('Location: index.php');
+		exit();
+	}
+	
+	
+	if(isset($_SESSION['periodStartDate']))
+		unset($_SESSION['periodStartDate']);
+    
+	if(isset($_SESSION['periodEndDate']))
+		unset($_SESSION['periodEndDate']);
+	
+?>
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
