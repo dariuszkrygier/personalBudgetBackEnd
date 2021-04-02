@@ -391,7 +391,7 @@
 								unset($_SESSION['errorCategoryIncome']);
 							}
 						?>								
-															<div class="form-group rowExpense">
+								<div class="form-group rowExpense">
 																<label for="comment">Komentarz (opcjonalnie):</label>
 																<textarea class="form-control" rows="3" name="comment" ><?php 
 																	if (isset($_SESSION['formCommentIncome']))
@@ -401,14 +401,14 @@
 																	}
 																?></textarea>
 															<?php
-							if (isset($_SESSION['errorCommentIncome']))
-							{
-								echo '<div class="error">'.$_SESSION['errorCommentIncome'].'</div>';
-								unset($_SESSION['errorCommentIncome']);
-							}
-						?>	
-									</div>
-		
+											if (isset($_SESSION['errorCommentIncome']))
+											{
+												echo '<div class="error">'.$_SESSION['errorCommentIncome'].'</div>';
+												unset($_SESSION['errorCommentIncome']);
+											}
+										?>	
+								</div>
+						</div>
 							<div>
 								<input type="submit" class="btn btn-success " value="Dodaj">
 								
