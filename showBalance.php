@@ -121,8 +121,24 @@
 				
 				<div class="row" id="logowanie">
 				
+					<div class="row text-justify">
 				
+						<form class="main-form" action="saveDate.php" method="post">
+
+									<div class="form-group" >
+										<label class ="text-light" for="periodOfTime">Wybierz przedział czasowy dla Twojego budżetu:</label>
+										<select class="form-control select-css" id="periodOfTime" name="periodOfTime">
+											<option  value="currentMonth">Bieżący miesiąc</option>
+											<option  value="previousMonth">Poprzedni miesiąc</option>
+											<option  value="currentYear">Bieżący rok</option>
+											<option  value="selectedPeriod">Wybrany okres</option>
+										</select>
+									</div>
+									<button type="submit" class="btn btn-success">Wybierz</button>
+						</form>
 				
+					</div>
+				<!--
 					<div class="dropdown" >
 					  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						Wybierz datę:
@@ -134,10 +150,10 @@
 						<button class="dropdown-item" type="button" id="selectDateRange" data-toggle="modal" data-target="#dateRange">Przedział czasowy</button>
 					  </div>
 					</div>
-					
+				-->	
 				</div>				
 					
-										<!-- Modal -->
+										<!-- Modal 
 					<div class="modal fade" id="dateRange" tabindex="-1" role="dialog" aria-labelledby="dateRange" aria-hidden="true">
 					  <div class="modal-dialog" role="document">
 						<div class="modal-content">
@@ -162,7 +178,7 @@
 													<div class="input-group-prepend">
 														<i class="fas fa-calendar-week"></i> 
 													</div>
-													<input type="date" name="date" id="dateFrom" class="form-control" required>
+													<input type="date" name="dateFrom" id="dateFrom" class="form-control" required>
 													<div class="invalid-feedback">Podaj datę!</div>
 													<script type="text/javascript" src="budget.js"></script>
 												</div>
@@ -173,7 +189,7 @@
 													<div class="input-group-prepend">
 														<i class="fas fa-calendar-week"></i> 
 													</div>
-													<input type="date" name="date" id="dateTill" class="form-control" required>
+													<input type="date" name="dateTill" id="dateTill" class="form-control" required>
 													<div class="invalid-feedback">Podaj datę!</div>
 													<script type="text/javascript" src="budget.js"></script>
 												</div>
@@ -186,7 +202,7 @@
 										  </div>
 											<div class="modal-footer">
 													<button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
-													<button type="button" class="btn btn-success" data-dismiss="modal">Wybierz</button>
+													<button type="button" class="btn btn-success" id="save">Wybierz</button>
 												</div>
 						</div>
 						</div>
@@ -308,7 +324,7 @@
 			</div>
 			</div>
 		</div>
-
+-->
 		</article>
 		
 	</main>

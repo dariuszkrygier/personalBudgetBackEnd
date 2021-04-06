@@ -109,8 +109,15 @@ function formatDate(date) {
 	 document.getElementById("selectDateRange").onclick = function (){selectDateRange()};
 	
 	function selectDateRange(){
-		document.getElementById("wynik1").innerHTML = formatDate( document.getElementById("dateFrom"));
-		document.getElementById("wynik2").innerHTML = formatDate( document.getElementById("dateTill"));
+		$('#save').click(function() {
+			var dateFrom = $( "#dateFrom" ).val();
+			var dateTill = $( "#dateTill" ).val();
+		document.getElementById("wynik1").innerHTML = formatDate( dateFrom);
+		document.getElementById("wynik2").innerHTML = formatDate( dateTill);
+	  $('#dateRange').modal('hide');
+	});
+		
+		
     }
 		
 
