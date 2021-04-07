@@ -33,7 +33,7 @@
 		if($endDate == NULL)
 		{
 			$allGood = false;
-			$_SESSION['errorEndDate'] = "Wybierz datę dla końca wykresu.";
+			$_SESSION['errorEndDate'] = "Wybierz datę dla końca okresu.";
 		}				
 					
 		if($startDate > $now)
@@ -177,22 +177,23 @@
 				
 				<div class="row" id="logowanie">
 				
-					<div class="row text-justify">
+					
 				
-						<?php
+			<?php
 				if(isset($_SESSION['formPeriodOfTime'])&& $_SESSION['formPeriodOfTime'] == "selectedPeriod")
 				{
 		
-				echo '<div class="col-md-5 col-md-offset-2 bg3">';
-					echo '<form method = "POST" >';
-							echo '<div class="row">';
-								echo '<h3 class="articleHeader">Wybierz okres czasu dla bilansu.</h3>';
-							echo '</div>';
-							echo '<div class="row rowExpense">';
-										echo '<div class="form-group">';
-										echo '<label class="control-label col-sm-4 text-right" for="startDate">Początek okresu:</label>';
-										echo '<div class="col-sm-6">';
-											echo '<input type="date" name="startDate" value="';
+				
+					echo '<form class="" method="POST" >';
+								echo '<div class="row">';
+								echo '<h3 class="text-light">Wybierz przedział czasowy:</h3>';
+								echo '</div>';
+								
+						echo '<div class="row">';
+										echo '<div class="form-group my-5">';
+										echo '<label class="control-label text-light col-sm-4 my-1" for="startDate">Początek:</label>';
+										
+											echo '<input type="date" class="form-control" name="startDate" value="';
 											if (isset($_SESSION['formStartDate']))
 											{
 												echo $_SESSION['formStartDate'];
@@ -200,45 +201,52 @@
 											}
 											echo '"class="form-control" placeholder="dd-mm-rrrr">';
 											
-											if (isset($_SESSION['errorStartDate']))
-											{
-												echo '<div class="error">'.$_SESSION['errorStartDate'].'</div>';
-												unset($_SESSION['errorStartDate']);
-											}
+											;
 											
-										echo '</div>';
-										echo '<div class="col-sm-2"></div>';  
-										echo '</div>';
-							echo '</div>';
-							echo '<div class="row">';
-								echo '<div class="form-group">';
-									echo '<label class="control-label col-sm-4 text-right" for="endDate">Koniec okresu:</label>';
-									echo '<div class="col-sm-6">';
-										echo '<input type="date" name="endDate" value="';
+											
+											
+									
+										
+										echo '</div>';	
+						echo '</div>';	
+						if (isset($_SESSION['errorStartDate']))
+											{
+												echo '<div class="error my-1">'.$_SESSION['errorStartDate'].'</div>';
+												unset($_SESSION['errorStartDate']);	
+											}
+							
+						echo '<div class="row">';
+								echo '<div class="form-group my-5">';
+									echo '<label class="control-label text-light my-1 col-sm-4" for="endDate">Koniec:</label>';
+										echo '<input type="date" class="form-control" name="endDate" value="';
 											if (isset($_SESSION['formEndDate']))
 											{
 												echo $_SESSION['formEndDate'];
 												unset($_SESSION['formEndDate']);
 											}
-											echo '" class="form-control" placeholder="dd-mm-rrrr">';
-										if (isset($_SESSION['errorEndDate']))
+											echo '"class="form-control" placeholder="dd-mm-rrrr">';
+										
+									
+							
+								echo '</div>';
+						
+						echo '</div>';	
+						if (isset($_SESSION['errorEndDate']))
 											{
-												echo '<div class="error">'.$_SESSION['errorEndDate'].'</div>';
+											
+												echo '<div class="error my-1">'.$_SESSION['errorEndDate'].'</div>';
 												unset($_SESSION['errorEndDate']);
+												
 											}
-									echo '</div>';
-								echo '<div class="col-sm-2"></div>';  
-								echo '</div>';
+							echo '<div class="row">';
+								echo '<div class="col-sm-7 my-3">';
+									echo '<button type="submit" class="btn btn-success">Wyświetl bilans</button>';
+							
 							echo '</div>';
-							echo '<div class="row ">';
-								echo '<div class="col-sm-7 col-sm-offset-3">';
-									echo '<button type="submit" class="btnSetting">Wyświetl bilans</button>';
-								echo '</div>';
-								echo '<div class="col-sm-2"></div>';
 							echo '</div>';
 							
 					echo '</form>';
-				echo '</div>';
+				
 				
 				}
 				else if ($_SESSION['formPeriodOfTime'] == "currentMonth" || $_SESSION['formPeriodOfTime'] == "previousMonth" || $_SESSION['formPeriodOfTime'] == "currentYear")
@@ -246,7 +254,7 @@
 					header ('Location: balance.php');
 				}
 				
-				?>
+			?>
 				
 					</div>
 			

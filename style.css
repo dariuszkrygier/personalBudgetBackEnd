@@ -57,6 +57,7 @@ h2
 	
 }
 
+
 .changeMarginOfInput input
 {
 	background-color: #858585;
@@ -81,7 +82,18 @@ h2
 	border-bottom-left-radius:5px;
 	margin-top:20px;
 }
-
+.input-group-append
+{
+	font-size: 16px;
+	color:red;
+	margin-top:15px;
+	margin-left:15px;
+	border-top-left-radius:5px;
+	border-bottom-left-radius:5px;
+	display: block;
+	width:500px;
+	
+}
 
 
 #wplata, #todayIncome, #todayExpense, #loginName, #passwordInput, #registerName, #registerPassword, #registerPasswordRepeat, #registerEmail 
@@ -438,5 +450,11 @@ wrapper {
 }
 
 
-
+.error
+{
+	font-size : 16px;
+	color: red;
+	margin-top:10px;
+	margin-bottom:10px;
+}
 
